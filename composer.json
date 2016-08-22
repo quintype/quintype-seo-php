@@ -1,8 +1,8 @@
 {
-    "name": "quintype/seo-php",
+    "name": "quintype/seo",
     "autoload": {
         "psr-0" : {
-            "Quintype\\SeoPhp" : "src"
+            "Quintype\\Seo" : "src"
         }
     }
 }
