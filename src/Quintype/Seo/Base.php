@@ -10,17 +10,17 @@ class Base {
 	}
 
 	private function getSeoMetadata() {
-		
+
 		if(sizeof($this->config['seo-metadata'])>0){
 			$key = 'owner-type';
 			foreach ($this->config['seo-metadata'] as $metadata) {
 		        if (array_key_exists($key, $metadata) && $metadata[$key]==$this->pageType) {
 		            return $metadata['data'];
-		        }			
-			}	
+		        }
+			}
 		} else {
 			return array();
 		}
-		
+
 	}
 }

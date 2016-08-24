@@ -4,7 +4,12 @@ namespace Quintype\Seo;
 
 require "Base.php";
 
-class Home extends Base {
+class Section extends Base {
+
+	function __construct($config, $pageType, $section){
+		parent::__construct($config, $pageType);
+		$this->section = $section;
+	}
 
 	function tags() {
 		if (sizeof($this->seoMetadata)>0){
@@ -19,15 +24,6 @@ class Home extends Base {
 		        'twitter' => [
 		          'title' => $this->seoMetadata['title'],
 		          'description' => $this->seoMetadata['description']
-		        ],
-		        'msvalidate.01' => $this->getBingId(),
-		        'fb' => [
-		          'app_id' => $this->getFacebookId()
-		        ],
-		        'alternate' => [
-		          'href' => '/feed',
-		          'type' => 'application/atom+xml',
-		          'title' => "#{title} ATOM Feed"
 		        ]
 		    ];
 		} else {
@@ -39,22 +35,9 @@ class Home extends Base {
 		if(isset($this->seoMetadata['page-title'])){
 			return $this->seoMetadata['page-title'];
 		} else {
-			return $this->config['title'];
+			return $this->section . " - " . $this->config['title'];
 		}
 	}
 
-	private function getFacebookId(){
-		if(isset($this->config['facebook'])){
-			return $this->config['facebook']['app-id'];
-		}
-	}
-
-	private function getBingId(){
-		if(isset($this->config['integrations'])){
-			if(isset($this->config['integrations']['bing'])){
-				return $this->config['integrations']['bing']['app-id'];
-			}
-		}
-	}
 
 }
