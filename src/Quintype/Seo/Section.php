@@ -31,7 +31,7 @@ class Section extends Base {
 		}
 	}
 
-	private function getTitle(){
+	protected function getTitle(){
 		if(isset($this->seoMetadata['page-title'])){
 			return $this->seoMetadata['page-title'];
 		} else {
