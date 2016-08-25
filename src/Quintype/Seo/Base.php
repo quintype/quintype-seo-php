@@ -23,4 +23,34 @@ class Base {
 		}
 
 	}
+
+	protected function getTitle(){
+		if(isset($this->seoMetadata['page-title'])){
+			return $this->seoMetadata['page-title'];
+		} else {
+			return $this->config['title'];
+		}
+	}
+
+	protected function getFacebookId(){
+		if(isset($this->config['facebook'])){
+			return $this->config['facebook']['app-id'];
+		}
+	}
+
+	protected function getBingId(){
+		if(isset($this->config['integrations'])){
+			if(isset($this->config['integrations']['bing'])){
+				return $this->config['integrations']['bing']['app-id'];
+			}
+		}
+	}
+
+	protected function getCanonicalUrl(){
+		if(isset($this->story['canonical_url'])){
+			return $this->story['canonical_url'];
+		} else {
+			return $this->config['sketches-host'] . "/". $this->story['slug'];
+		}
+	}
 }

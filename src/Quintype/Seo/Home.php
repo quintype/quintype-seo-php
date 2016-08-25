@@ -35,26 +35,5 @@ class Home extends Base {
 		}
 	}
 
-	private function getTitle(){
-		if(isset($this->seoMetadata['page-title'])){
-			return $this->seoMetadata['page-title'];
-		} else {
-			return $this->config['title'];
-		}
-	}
-
-	private function getFacebookId(){
-		if(isset($this->config['facebook'])){
-			return $this->config['facebook']['app-id'];
-		}
-	}
-
-	private function getBingId(){
-		if(isset($this->config['integrations'])){
-			if(isset($this->config['integrations']['bing'])){
-				return $this->config['integrations']['bing']['app-id'];
-			}
-		}
-	}
 
 }

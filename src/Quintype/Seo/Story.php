@@ -7,7 +7,7 @@ require "Base.php";
 class Story extends Base {
 
 	function __construct($config, $pageType, $story){
-		$this->config = $config;
+		parent::__construct($config, $pageType);
 		$this->story = $story;
 	}
 
@@ -22,13 +22,15 @@ class Story extends Base {
 		        'twitter' => $this->getTwitterAttributes(),
 		        'msvalidate.01' => $this->getBingId(),
 		        'fb' => [
-		          'app_id' => $this->getFacebookId()
+		          'app-id' => $this->getFacebookId()
 		        ],
-		        // 'alternate' => [
-		        //   'href' => '/feed',
-		        //   'type' => 'application/atom+xml',
-		        //   'title' => "#{title} ATOM Feed"
-		        // ]
+		        'article' => [
+		          'publisher' => $this->getPublisher()
+		        ],
+		        'rel:canonical' => $this->getCanonicalUrl(),
+		        'al:android:package' => $this->getPublisher('al:android:package'),
+		        'al:android:app-name' => $this->getPublisher('al:android:app-name'),
+		        'al:android:url' => "quintypefb://" . $this->config['sketches-host'] . "/". $this->story['slug']
 		    ];
 		} else {
 			return ['title' => $this->getTitle()];
@@ -39,11 +41,26 @@ class Story extends Base {
 		$attributes = [
 			'title' => $this->story['headline'],
 	        'type' => 'article',
-	        // 'url' => '******** Canonical URL here ********',
-	        'site_name' => $this->config['title'],
+	        'url' => $this->getCanonicalUrl(),
+	        'site-name' => $this->config['title'],
 	        'description' => $this->story['summary'],
-	        // 'image' => '******** Image URL ********'
+	        'image' => $this->getHeroImageUrl()
         ];
+
+        if(isset($this->story['hero-image-metadata'])){
+
+        	$imageProperties=[];
+
+        	if(isset($this->story['hero-image-metadata']['width'])){
+        		$imageProperties['image:width']=$this->story['hero-image-metadata']['width'];
+        	}
+
+        	if(isset($this->story['hero-image-metadata']['height'])){
+        		$imageProperties['image:height']=$this->story['hero-image-metadata']['height'];
+        	}
+
+        	$attributes = array_merge($attributes, $imageProperties);
+        }
 
         return $attributes;
 	}
@@ -52,36 +69,45 @@ class Story extends Base {
 		$attributes = [
 			'title' => $this->story['headline'],
 	        'description' => $this->story['summary'],
-	        'card' => 'summary_large_image',
-	        // 'site' => '******** Twitter Credentials ********',
+	        'card' => 'summary-large-image',
+	        'site' => $this->getTwitterSite(),
 	        'image' => [
-	          // 'src' => '******** hero_image_url ********'
+	          'src' => $this->getHeroImageUrl()
 	        ]
 		];
 
 		return $attributes;
 	}
 
-	private function getTitle(){
-		if(isset($this->seoMetadata['page-title'])){
-			return $this->seoMetadata['page-title'];
-		} else {
-			return $this->config['title'];
-		}
-	}
-
-	private function getFacebookId(){
-		if(isset($this->config['facebook'])){
-			return $this->config['facebook']['app-id'];
-		}
-	}
-
-	private function getBingId(){
-		if(isset($this->config['integrations'])){
-			if(isset($this->config['integrations']['bing'])){
-				return $this->config['integrations']['bing']['app-id'];
+	private function getTwitterSite(){
+		if(isset($this->config['social-app-credentials'])){
+			if(isset($this->config['social-app-credentials']['twitter'])){
+				return $this->config['social-app-credentials']['twitter']['username'];
 			}
 		}
 	}
+
+	private function getPublisher(){
+		if(isset($this->config['social-links'])){
+			return $this->config['social-links']['facebook-url'];
+		}
+	}
+
+	private function getAndroidData($element){
+		if(isset($this->config['apps-data'])){
+			return $this->config['apps-data'][$element];
+		}
+	}
+
+	private function getHeroImageUrl(){
+		 if(isset($this->config['cdn-name']) && isset($this->story['hero-image-s3-key'])){
+		 	$imageUrl = $this->config['cdn-name'].$this->story['hero-image-s3-key'];
+		 	return str_replace(" ", "%20", $imageUrl);
+		 }else{
+		 	return '';
+		 }
+	}
+
+
 
 }
