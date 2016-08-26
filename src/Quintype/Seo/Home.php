@@ -28,7 +28,7 @@ class Home extends Base {
 		        'alternate' => [
 		          'href' => '/feed',
 		          'type' => 'application/atom+xml',
-		          'title' => trim($this->getTitle() . " ATOM Feed"
+		          'title' => trim($this->getTitle()) . " ATOM Feed"
 		        ]
 		    ];
 		} else {
