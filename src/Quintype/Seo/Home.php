@@ -22,7 +22,8 @@ class Home extends Base {
 		        ],
 		        'msvalidate.01' => $this->getBingId(),
 		        'fb' => [
-		          'app_id' => $this->getFacebookId()
+		          'app_id' => $this->getFacebookData('app-id'),
+		          'pages' => $this->getFacebookData('pages')
 		        ],
 		        'alternate' => [
 		          'href' => '/feed',

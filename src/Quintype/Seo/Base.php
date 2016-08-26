@@ -32,16 +32,20 @@ class Base {
 		}
 	}
 
-	protected function getFacebookId(){
+	protected function getFacebookData($key){
 		if(isset($this->config['facebook'])){
-			return $this->config['facebook']['app-id'];
+			if(isset($this->config['facebook'][$key])){
+				return $this->config['facebook'][$key];
+			}
 		}
 	}
 
 	protected function getBingId(){
 		if(isset($this->config['integrations'])){
 			if(isset($this->config['integrations']['bing'])){
-				return $this->config['integrations']['bing']['app-id'];
+				if(isset($this->config['integrations']['bing']['app-id'])){
+					return $this->config['integrations']['bing']['app-id'];
+				}
 			}
 		}
 	}
