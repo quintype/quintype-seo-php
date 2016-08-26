@@ -11,7 +11,7 @@ class StaticPage extends Base {
 	}
 
 	function tags() {
-			return ['title' => $this->title];
+			return ['title' => trim($this->title)];
 	}
 
 }

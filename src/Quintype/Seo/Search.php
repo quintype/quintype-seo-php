@@ -11,7 +11,7 @@ class Search extends Base {
 	}
 
 	function tags() {
-			return ['title' => $this->query ." - Search Results"];
+			return ['title' => trim($this->query) ." - Search Results"];
 	}
 
 }

@@ -12,7 +12,7 @@ class Tag extends Base {
 	}
 
 	function tags() {
-			return ['title'=>$this->tag . " - " . $this->config['title']];
+			return ['title'=>trim($this->tag) . " - " . $this->config['title']];
 	}
 
 }

@@ -16,8 +16,8 @@ class Story extends Base {
 		if (sizeof($this->story)>0){
 
 			return [
-				'title' => $this->getTitle(),
-	        	'description' => $this->story['summary'],
+				'title' => trim($this->getTitle()),
+	        	'description' => trim($this->story['summary']),
 	        	'og' => $this->getOgAttributes(),
 		        'twitter' => $this->getTwitterAttributes(),
 		        'msvalidate.01' => $this->getBingId(),
@@ -39,11 +39,11 @@ class Story extends Base {
 
 	private function getOgAttributes(){
 		$attributes = [
-			'title' => $this->story['headline'],
+			'title' => trim($this->story['headline']),
 	        'type' => 'article',
 	        'url' => $this->getCanonicalUrl(),
-	        'site-name' => $this->config['title'],
-	        'description' => $this->story['summary'],
+	        'site-name' => trim($this->config['title']),
+	        'description' => trim($this->story['summary']),
 	        'image' => $this->getHeroImageUrl()
         ];
 
@@ -67,8 +67,8 @@ class Story extends Base {
 
 	private function getTwitterAttributes(){
 		$attributes = [
-			'title' => $this->story['headline'],
-	        'description' => $this->story['summary'],
+			'title' => trim($this->story['headline']),
+	        'description' => trim($this->story['summary']),
 	        'card' => 'summary-large-image',
 	        'site' => $this->getTwitterSite(),
 	        'image' => [

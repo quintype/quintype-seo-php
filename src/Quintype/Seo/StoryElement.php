@@ -13,7 +13,7 @@ class StoryElement extends Base {
 
 	function tags() {
 			return [
-				'title' => $this->story['headline'] . " - " . $this->config['title'],
+				'title' => trim($this->story['headline']) . " - " . $this->config['title'],
 	        	'rel:canonical' => $this->getCanonicalUrl()
 	       	];
 	}

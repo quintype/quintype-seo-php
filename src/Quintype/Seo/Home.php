@@ -10,15 +10,15 @@ class Home extends Base {
 		if (sizeof($this->seoMetadata)>0){
 
 			return [
-				'title' => $this->getTitle(),
-	        	'description' => $this->seoMetadata['description'],
+				'title' => trim($this->getTitle()),
+	        	'description' => trim($this->seoMetadata['description']),
 	        	'og' => [
-	          		'title' => $this->seoMetadata['title'],
-	          		'description' => $this->seoMetadata['description']
+	          		'title' => trim($this->seoMetadata['title']),
+	          		'description' => trim($this->seoMetadata['description'])
 	        	],
 		        'twitter' => [
-		          'title' => $this->seoMetadata['title'],
-		          'description' => $this->seoMetadata['description']
+		          'title' => trim($this->seoMetadata['title']),
+		          'description' => trim($this->seoMetadata['description'])
 		        ],
 		        'msvalidate.01' => $this->getBingId(),
 		        'fb' => [
@@ -31,7 +31,7 @@ class Home extends Base {
 		        ]
 		    ];
 		} else {
-			return ['title' => $this->getTitle()];
+			return ['title' => trim($this->getTitle())];
 		}
 	}
 
