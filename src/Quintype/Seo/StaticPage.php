@@ -6,7 +6,7 @@ require "Base.php";
 
 class StaticPage extends Base {
 
-	function __construct($config, $pageType, $title){
+	function __construct($title){
 		$this->title = $title;
 	}
 
