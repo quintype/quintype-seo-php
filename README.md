@@ -50,7 +50,7 @@ return [
 ];
 ```
 
-###  Install or update the composer.
+###  Install or update the composer packages.
 ```sh
 $ composer install
 or
