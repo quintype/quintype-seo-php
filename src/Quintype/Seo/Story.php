@@ -22,7 +22,7 @@ class Story extends Base {
 		        'twitter' => $this->getTwitterAttributes(),
 		        'msvalidate.01' => $this->getBingId(),
 		        'fb' => [
-		          'app-id' => $this->getFacebookData('app-id'),
+		          'app_id' => $this->getFacebookData('app-id'),
 		          'pages' => $this->getFacebookData('pages')
 		        ],
 		        'article' => [
