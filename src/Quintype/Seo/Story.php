@@ -22,7 +22,7 @@ class Story extends Base {
 		        'twitter' => $this->getTwitterAttributes(),
 		        'msvalidate.01' => $this->getBingId(),
 		        'fb' => [
-		          'app-id' => $this->getFacebookData('app-id'),
+		          'app_id' => $this->getFacebookData('app-id'),
 		          'pages' => $this->getFacebookData('pages')
 		        ],
 		        'article' => [
@@ -84,7 +84,11 @@ class Story extends Base {
 		if(isset($this->config['social-app-credentials'])){
 			if(isset($this->config['social-app-credentials']['twitter'])){
 				return $this->config['social-app-credentials']['twitter']['username'];
+			}else{
+				return '';
 			}
+		}else{
+			return '';
 		}
 	}
 
