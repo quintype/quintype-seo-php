@@ -5,7 +5,7 @@ Note : We are making use of a package called Meta (https://github.com/quintype/m
 
 Instructions to include the package into a project.
 
-* In composer.json, add a repository pointing to the forked meta repository.
+### In composer.json, add a repository pointing to the forked meta repository.
 ```sh
 "repositories": [
         ...
@@ -17,7 +17,7 @@ Instructions to include the package into a project.
     ],
 ```
 
-* In composer.json, require the original Meta package and this seo package.
+###  In composer.json, require the original Meta package and this seo package.
 ```sh
 "require": {
         ...
@@ -26,7 +26,7 @@ Instructions to include the package into a project.
         "ryannielson/meta":"dev-master"
     },
 ```
-* In the Laravel config/app.php file, include Meta provider and give an alias to it.
+###  In the Laravel config/app.php file, include Meta provider and give an alias to it.
 ```sh
 'providers' => [
         ...
@@ -41,7 +41,7 @@ Instructions to include the package into a project.
     ],
 ```
 
-* Add an attribute called 'title' in config/quintype.php file as a fall-back value if it is not recieved from the meta data.
+###  Add an attribute called 'title' in config/quintype.php file as a fall-back value if it is not recieved from the meta data.
 ```sh
 return [
     ...
@@ -50,18 +50,18 @@ return [
 ];
 ```
 
-* Install or update the composer.
+###  Install or update the composer.
 ```sh
 $ composer install
 or
 $ composer update
 ```
-* Include both Meta and SEO classes in the necessary controllers.
+###  Include both Meta and SEO classes in the necessary controllers.
 ```sh
 use Meta;
 use Quintype\Seo;
 ```
-* Create a constructor function to initialize the Meta object and config variable if necessary.
+###  Create a constructor function to initialize the Meta object and config variable if necessary.
 ```sh
 public function __construct(){
   parent::__construct();
@@ -69,7 +69,7 @@ public function __construct(){
   $this->config = $this->client->config();
 }
 ```
-* Prepare the data required for meta tags.
+###  Prepare the data required for meta tags.
 ```sh
 // Setting Seo meta tags
 $page = ["type" => "home"];//Type of the page. In this case, it is the home page.
@@ -77,7 +77,7 @@ $home = new Seo\Home(array_merge($this->config, config('quintype')), $page["type
 $this->meta->set($home->tags());//Set the tags received in the above step.
 ```
 
-* In the function to render the view, include the meta data.
+###  In the function to render the view, include the meta data.
 ```sh
 return view('home', $this->toView([
       ...
@@ -87,7 +87,7 @@ return view('home', $this->toView([
   );
 ```
 
-* In the layout.twig file(or the container template twig file of the project), call the function to add the meta tags.
+###  In the layout.twig file(or the container template twig file of the project), call the function to add the meta tags.
 ```sh
 {{ meta.display([], true)|raw }}
 ```
