@@ -1,7 +1,7 @@
 # quintype-seo-php
 A composer package for seo for all quintype projects
 
-Note : We are making use of a package called Meta (https://github.com/quintype/meta) forked from https://github.com/RyanNielson/meta for dynamically adding the meta tags into the page.
+Note : We are making use of a package called Meta (https://github.com/quintype/meta) forked from https://github.com/RyanNielson/meta for dynamically adding the meta tags into the pages.
 
 Instructions to include the package into a project.
 
