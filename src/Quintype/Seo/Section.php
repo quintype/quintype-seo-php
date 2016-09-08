@@ -15,23 +15,23 @@ class Section extends Base {
 		if (sizeof($this->seoMetadata)>0){
 
 			return [
-				'title' => trim($this->getTitle()),
-	        	'description' => trim($this->seoMetadata['description']),
+				'title' => trim($this->getPageTitle()),
+	        	'description' => trim($this->getDescription()),
 	        	'og' => [
-	          		'title' => trim($this->seoMetadata['title']),
-	          		'description' => trim($this->seoMetadata['description'])
+	          		'title' => trim($this->getTitle()),
+	          		'description' => trim($this->getDescription())
 	        	],
 		        'twitter' => [
-		          'title' => trim($this->seoMetadata['title']),
-		          'description' => trim($this->seoMetadata['description'])
+		          'title' => trim($this->getTitle()),
+		          'description' => trim($this->getDescription())
 		        ]
 		    ];
 		} else {
-			return ['title' => trim($this->getTitle())];
+			return ['title' => trim($this->getPageTitle())];
 		}
 	}
 
-	protected function getTitle(){
+	protected function getPageTitle(){
 		if(isset($this->seoMetadata['page-title'])){
 			return $this->seoMetadata['page-title'];
 		} else {

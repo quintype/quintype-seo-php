@@ -16,8 +16,8 @@ class Story extends Base {
 		if (sizeof($this->story)>0){
 
 			return [
-				'title' => trim($this->getTitle()),
-	        	'description' => trim($this->story['summary']),
+				'title' => trim($this->getPageTitle()),
+	        	'description' => trim($this->getDescription()),
 	        	'og' => $this->getOgAttributes(),
 		        'twitter' => $this->getTwitterAttributes(),
 		        'msvalidate.01' => $this->getBingId(),
@@ -29,22 +29,38 @@ class Story extends Base {
 		          'publisher' => $this->getPublisher()
 		        ],
 		        'rel:canonical' => $this->getCanonicalUrl(),
-		        'al:android:package' => $this->getPublisher('al:android:package'),
-		        'al:android:app-name' => $this->getPublisher('al:android:app-name'),
+		        'al:android:package' => $this->getAndroidData('al:android:package'),
+		        'al:android:app-name' => $this->getAndroidData('al:android:app-name'),
 		        'al:android:url' => "quintypefb://" . $this->config['sketches-host'] . "/". $this->story['slug']
 		    ];
 		} else {
-			return ['title' => $this->getTitle()];
+			return ['title' => $this->getPageTitle()];
+		}
+	}
+
+	protected function getDescription(){
+		if(isset($this->story['summary'])){
+			return $this->story['summary'];
+		} else {
+			return '';
+		}
+	}
+
+	protected function getTitle(){
+		if(isset($this->story['headline'])){
+			return $this->story['headline'];
+		} else {
+			return $this->config['title'];
 		}
 	}
 
 	private function getOgAttributes(){
 		$attributes = [
-			'title' => trim($this->story['headline']),
+			'title' => trim($this->getTitle()),
 	        'type' => 'article',
 	        'url' => $this->getCanonicalUrl(),
 	        'site-name' => trim($this->config['title']),
-	        'description' => trim($this->story['summary']),
+	        'description' => trim($this->getDescription()),
 	        'image' => $this->getHeroImageUrl()
         ];
 
@@ -68,8 +84,8 @@ class Story extends Base {
 
 	private function getTwitterAttributes(){
 		$attributes = [
-			'title' => trim($this->story['headline']),
-	        'description' => trim($this->story['summary']),
+			'title' => trim($this->getTitle()),
+	        'description' => trim($this->getDescription()),
 	        'card' => 'summary-large-image',
 	        'site' => $this->getTwitterSite(),
 	        'image' => [
@@ -100,7 +116,9 @@ class Story extends Base {
 
 	private function getAndroidData($element){
 		if(isset($this->config['apps-data'])){
-			return $this->config['apps-data'][$element];
+			if(isset($this->config['apps-data'][$element])){
+				return $this->config['apps-data'][$element];
+			}
 		}
 	}
 

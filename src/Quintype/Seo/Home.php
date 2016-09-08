@@ -10,15 +10,15 @@ class Home extends Base {
 		if (sizeof($this->seoMetadata)>0){
 
 			return [
-				'title' => trim($this->getTitle()),
-	        	'description' => trim($this->seoMetadata['description']),
+				'title' => trim($this->getPageTitle()),
+	        	'description' => trim($this->getDescription()),
 	        	'og' => [
-	          		'title' => trim($this->seoMetadata['title']),
-	          		'description' => trim($this->seoMetadata['description'])
+	          		'title' => trim($this->getTitle()),
+	          		'description' => trim($this->getDescription())
 	        	],
 		        'twitter' => [
-		          'title' => trim($this->seoMetadata['title']),
-		          'description' => trim($this->seoMetadata['description'])
+		          'title' => trim($this->getTitle()),
+		          'description' => trim($this->getDescription())
 		        ],
 		        'msvalidate.01' => $this->getBingId(),
 		        'fb' => [
@@ -28,11 +28,11 @@ class Home extends Base {
 		        'alternate' => [
 		          'href' => '/feed',
 		          'type' => 'application/atom+xml',
-		          'title' => trim($this->getTitle()) . " ATOM Feed"
+		          'title' => trim($this->getPageTitle()) . " ATOM Feed"
 		        ]
 		    ];
 		} else {
-			return ['title' => trim($this->getTitle())];
+			return ['title' => trim($this->getPageTitle())];
 		}
 	}
 

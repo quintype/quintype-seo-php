@@ -24,11 +24,27 @@ class Base {
 
 	}
 
-	protected function getTitle(){
+	protected function getPageTitle(){
 		if(isset($this->seoMetadata['page-title'])){
 			return $this->seoMetadata['page-title'];
 		} else {
 			return $this->config['title'];
+		}
+	}
+
+	protected function getTitle(){
+		if(isset($this->seoMetadata['title'])){
+			return $this->seoMetadata['title'];
+		} else {
+			return $this->config['title'];
+		}
+	}
+
+	protected function getDescription(){
+		if(isset($this->seoMetadata['description'])){
+			return $this->seoMetadata['description'];
+		} else {
+			return '';
 		}
 	}
 
