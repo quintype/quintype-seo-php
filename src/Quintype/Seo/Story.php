@@ -86,7 +86,7 @@ class Story extends Base {
 		$attributes = [
 			'title' => trim($this->getTitle()),
 	        'description' => trim($this->getDescription()),
-	        'card' => 'summary-large-image',
+	        'card' => 'summary_large_image',
 	        'site' => $this->getTwitterSite(),
 	        'image' => [
 	          'src' => $this->getHeroImageUrl()
