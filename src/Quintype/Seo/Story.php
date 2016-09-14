@@ -16,7 +16,7 @@ class Story extends Base {
 		if (sizeof($this->story)>0){
 
 			return [
-				'title' => trim($this->getPageTitle()),
+				'title' => trim($this->getTitle()),
 	        	'description' => trim($this->getDescription()),
 	        	'og' => $this->getOgAttributes(),
 		        'twitter' => $this->getTwitterAttributes(),
