@@ -6,8 +6,8 @@ require "Base.php";
 
 class Section extends Base {
 
-	function __construct($config, $pageType, $section){
-		parent::__construct($config, $pageType);
+	function __construct($config, $pageType, $section, $section_id = ''){
+		parent::__construct($config, $pageType, $section_id);
 		$this->section = $section;
 	}
 

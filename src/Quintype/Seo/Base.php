@@ -3,9 +3,10 @@
 namespace Quintype\Seo;
 
 class Base {
-	function __construct($config, $pageType){
+	function __construct($config, $pageType, $section_id=''){
 		$this->config = $config;
 		$this->pageType = $pageType;
+		$this->section_id = $section_id;
 		$this->seoMetadata = $this->getSeoMetadata();
 	}
 
@@ -13,11 +14,25 @@ class Base {
 
 		if(sizeof($this->config['seo-metadata'])>0){
 			$key = 'owner-type';
-			foreach ($this->config['seo-metadata'] as $metadata) {
-		        if (array_key_exists($key, $metadata) && $metadata[$key]==$this->pageType) {
-		            return $metadata['data'];
-		        }
+
+			if($this->pageType == 'section'){//If it is a section page.
+				foreach ($this->config['seo-metadata'] as $metadata) {
+			        if (array_key_exists($key, $metadata) && $metadata[$key]==$this->pageType && $metadata['owner-id']==$this->section_id) {
+			            return $metadata['data'];
+			        } else {
+			        	return array();
+			        }
+				}
+			} else {
+				foreach ($this->config['seo-metadata'] as $metadata) {
+			        if (array_key_exists($key, $metadata) && $metadata[$key]==$this->pageType) {
+			            return $metadata['data'];
+			        } else {
+			        	return array();
+			        }
+				}
 			}
+
 		} else {
 			return array();
 		}
