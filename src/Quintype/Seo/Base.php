@@ -14,22 +14,27 @@ class Base {
 
 		if(sizeof($this->config['seo-metadata'])>0){
 			$key = 'owner-type';
+			$found = 0;
 
 			if($this->pageType == 'section'){//If it is a section page.
 				foreach ($this->config['seo-metadata'] as $metadata) {
 			        if (array_key_exists($key, $metadata) && $metadata[$key]==$this->pageType && $metadata['owner-id']==$this->section_id) {
+			        	$found = 1;
 			            return $metadata['data'];
-			        } else {
-			        	return array();
 			        }
+				}
+				if(!$found){
+					return array();
 				}
 			} else {
 				foreach ($this->config['seo-metadata'] as $metadata) {
 			        if (array_key_exists($key, $metadata) && $metadata[$key]==$this->pageType) {
+			        	$found = 1;
 			            return $metadata['data'];
-			        } else {
-			        	return array();
 			        }
+				}
+				if(!$found){
+					return array();
 				}
 			}
 
