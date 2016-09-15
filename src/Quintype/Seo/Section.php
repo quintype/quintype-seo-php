@@ -17,6 +17,7 @@ class Section extends Base {
 			return [
 				'title' => trim($this->getPageTitle()),
 	        	'description' => trim($this->getDescription()),
+	        	'keywords' => trim($this->getKeywords()),
 	        	'og' => [
 	          		'title' => trim($this->getTitle()),
 	          		'description' => trim($this->getDescription())

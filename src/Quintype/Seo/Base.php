@@ -48,6 +48,14 @@ class Base {
 		}
 	}
 
+	protected function getKeywords(){
+		if(isset($this->seoMetadata['keywords'])){
+			return $this->seoMetadata['keywords'];
+		} else {
+			return '';
+		}
+	}
+
 	protected function getFacebookData($key){
 		if(isset($this->config['facebook'])){
 			if(isset($this->config['facebook'][$key])){
