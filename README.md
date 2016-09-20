@@ -1,6 +1,12 @@
 # quintype-seo-php
 A composer package for seo for all quintype projects
 
+###Important : If any change is made to the package, do the following.
+* Create a new release.
+* Update the package in [Packagist](https://packagist.org/).
+* To use the new version of the package in any project, change the version number in composer.json file and run 
+``` $ composer update ```
+
 Note : We are making use of a package called Meta (https://github.com/quintype/meta) forked from https://github.com/RyanNielson/meta for dynamically adding the meta tags into the pages.
 
 Instructions to include the package into a project.
