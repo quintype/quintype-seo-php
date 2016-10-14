@@ -16,7 +16,7 @@ Instructions to include the package into a project.
 "require": {
         ...
         ...
-        "quintype/seo":"2.0.0",
+        "quintype/seo":"1.0.0",
         "quintype/meta":"2.0.0"
     },
 ```
