@@ -62,9 +62,9 @@ public function __construct(){
   $this->seo = new Seo($this->config);
 }
 ```
-####  Prepare the data required for meta tags.
+####  Prepare the data required for meta tags using [these available functions](https://github.com/quintype/quintype-seo-php/blob/master/README.md#available-functions).
 ```php
-$setSeo = $this->seo->FUNCTION_NAME($args);//eg. home($arguments), section($arguments), story($arguments) etc.
+$setSeo = $this->seo->FUNCTION_NAME($args);
 $this->meta->set($setSeo->prepareTags());
 ```
 
