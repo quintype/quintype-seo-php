@@ -5,14 +5,14 @@ A composer package for SEO for all quintype projects
 * Create a new release.
 * Update the package in [Packagist](https://packagist.org/).
 * To use the new version of the package in any project, change the version number in composer.json file and run
-``` $ composer update ```
+`$ composer update `
 
 Note : We are making use of a package called Meta (https://github.com/quintype/meta) forked from https://github.com/RyanNielson/meta for dynamically adding the meta tags into the pages.
 
 Instructions to include the package into a project.
 
-###  In composer.json, require Meta and SEO packages.
-```sh
+####  In composer.json, require Meta and SEO packages.
+```php
 "require": {
         ...
         ...
@@ -21,15 +21,15 @@ Instructions to include the package into a project.
     },
 ```
 
-###  Install or update the composer packages.
+####  Install or update the composer packages.
 ```sh
 $ composer install
 or
 $ composer update
 ```
 
-###  In the Laravel config/app.php file, add aliases to the packages for convenience.
-```sh
+####  In the Laravel config/app.php file, add aliases to the packages for convenience.
+```php
 'aliases' => [
         ...
         ...
@@ -38,8 +38,8 @@ $ composer update
     ],
 ```
 
-###  Add an attribute called 'title' in config/quintype.php file as a fall-back value if it is not received from the meta data.
-```sh
+####  Add an attribute called 'title' in config/quintype.php file as a fall-back value if it is not received from the config API.
+```php
 return [
     ...
     ...
@@ -47,14 +47,14 @@ return [
 ];
 ```
 
-###  Include both Meta and SEO classes in the necessary controllers.
-```sh
+####  Include both Meta and SEO classes in the necessary controllers.
+```php
 use Meta;
 use Seo;
 ```
 
-###  Create a constructor function to initialize the Meta and SEO objects. Note: Do not forget to pass the config(merge local config and config from API response) to SEO package.
-```sh
+####  Create a constructor function to initialize the Meta and SEO objects. Do not forget to pass the config(merge local config and config from API response) while initializing the Seo instance.
+```php
 public function __construct(){
   $this->client = new Api(config("quintype.api-host"));
   $this->config = array_merge($this->client->config(), config('quintype'));
@@ -62,17 +62,14 @@ public function __construct(){
   $this->seo = new Seo($this->config);
 }
 ```
-###  Prepare the data required for meta tags.
-```sh
-
-$page = ["type" => PAGE_TYPE];//eg. home, section, story etc.
-//Set SEO meta tags.
-$setSeo = $this->seo->FUNCTION_CORRESPONDING_TO_PAGE(ARGUMENTS);//eg. home($arguments), section($arguments), story($arguments) etc.
+####  Prepare the data required for meta tags.
+```php
+$setSeo = $this->seo->FUNCTION_NAME($args);//eg. home($arguments), section($arguments), story($arguments) etc.
 $this->meta->set($setSeo->prepareTags());
 ```
 
-###  In the function to render the view, include the meta data.
-```sh
+####  In the function to render the view, pass the meta data.
+```php
 return view('home', $this->toView([
       ...
       ...
@@ -81,7 +78,21 @@ return view('home', $this->toView([
   );
 ```
 
-###  In the layout.twig file(or the container template twig file of the project), call the function to add the meta tags.
-```sh
+####  In the \<head> tag of layout.twig file(or the container twig file of the project), call the function to add the meta tags.
+```twig
 {{ meta.display([], true)|raw }}
 ```
+---
+##AVAILABLE FUNCTIONS
+
+- **home(**$pageType**)**
+
+- **search(**$searchKeyword**)**
+
+- **section(**$pageType, $sectionName, $sectionId**)**
+
+- **staticPage(**$title**)**
+
+- **story(**$pageType, $storyArray**)**
+
+- **tag(**$tagName**)**
