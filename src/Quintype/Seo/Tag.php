@@ -2,17 +2,14 @@
 
 namespace Quintype\Seo;
 
-require "Base.php";
-
-class Tag extends Base {
-
-	function __construct($config, $pageType, $tag){
+class Tag
+{
+	function __construct($config, $tag){
 		$this->config = $config;
 		$this->tag = $tag;
 	}
 
-	function tags() {
-			return ['title'=>trim($this->tag) . " - " . $this->config['title']];
+	function prepareTags() {
+		return ['title'=>trim($this->tag) . " - " . $this->config['title']];
 	}
-
 }

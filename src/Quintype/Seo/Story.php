@@ -2,38 +2,34 @@
 
 namespace Quintype\Seo;
 
-require "Base.php";
-
-class Story extends Base {
-
+class Story extends Base
+{
 	function __construct($config, $pageType, $story){
 		parent::__construct($config, $pageType);
 		$this->story = $story;
 	}
 
-	function tags() {
-
+	function prepareTags() {
 		if (sizeof($this->story)>0){
-
 			return [
 				'title' => trim($this->getTitle()),
-	        	'description' => trim($this->getDescription()),
-	        	'keywords' => trim($this->getKeywords()),
-	        	'og' => $this->getOgAttributes(),
-		        'twitter' => $this->getTwitterAttributes(),
-		        'msvalidate.01' => $this->getBingId(),
-		        'fb' => [
-		          'app_id' => $this->getFacebookData('app-id'),
-		          'pages' => $this->getFacebookData('pages')
-		        ],
-		        'article' => [
-		          'publisher' => $this->getPublisher()
-		        ],
-		        'rel:canonical' => $this->getCanonicalUrl(),
-		        'al:android:package' => $this->getAndroidData('al:android:package'),
-		        'al:android:app-name' => $this->getAndroidData('al:android:app-name'),
-		        'al:android:url' => "quintypefb://" . $this->config['sketches-host'] . "/". $this->story['slug']
-		    ];
+      	'description' => trim($this->getDescription()),
+      	'keywords' => trim($this->getKeywords()),
+      	'og' => $this->getOgAttributes(),
+        'twitter' => $this->getTwitterAttributes(),
+        'msvalidate.01' => $this->getBingId(),
+        'fb' => [
+          'app_id' => $this->getFacebookData('app-id'),
+          'pages' => $this->getFacebookData('pages')
+        ],
+        'article' => [
+          'publisher' => $this->getPublisher()
+        ],
+        'rel:canonical' => $this->getCanonicalUrl(),
+        'al:android:package' => $this->getAndroidData('al:android:package'),
+        'al:android:app-name' => $this->getAndroidData('al:android:app-name'),
+        'al:android:url' => "quintypefb://" . $this->config['sketches-host'] . "/". $this->story['slug']
+	    ];
 		} else {
 			return ['title' => $this->getPageTitle()];
 		}
@@ -58,42 +54,36 @@ class Story extends Base {
 	private function getOgAttributes(){
 		$attributes = [
 			'title' => trim($this->getTitle()),
-	        'type' => 'article',
-	        'url' => $this->getCanonicalUrl(),
-	        'site-name' => trim($this->config['title']),
-	        'description' => trim($this->getDescription()),
-	        'image' => $this->getHeroImageUrl()
-        ];
+      'type' => 'article',
+      'url' => $this->getCanonicalUrl(),
+      'site-name' => trim($this->config['title']),
+      'description' => trim($this->getDescription()),
+      'image' => $this->getHeroImageUrl()
+    ];
 
-        if(isset($this->story['hero-image-metadata'])){
-
-        	$imageProperties=[];
-
-        	if(isset($this->story['hero-image-metadata']['width'])){
-        		$imageProperties['image:width']=$this->story['hero-image-metadata']['width'];
-        	}
-
-        	if(isset($this->story['hero-image-metadata']['height'])){
-        		$imageProperties['image:height']=$this->story['hero-image-metadata']['height'];
-        	}
-
-        	$attributes = array_merge($attributes, $imageProperties);
-        }
-
-        return $attributes;
+	  if(isset($this->story['hero-image-metadata'])){
+	  	$imageProperties=[];
+	  	if(isset($this->story['hero-image-metadata']['width'])){
+	  		$imageProperties['image:width']=$this->story['hero-image-metadata']['width'];
+	  	}
+	  	if(isset($this->story['hero-image-metadata']['height'])){
+	  		$imageProperties['image:height']=$this->story['hero-image-metadata']['height'];
+	  	}
+	  	$attributes = array_merge($attributes, $imageProperties);
+	  }
+	  return $attributes;
 	}
 
 	private function getTwitterAttributes(){
 		$attributes = [
 			'title' => trim($this->getTitle()),
-	        'description' => trim($this->getDescription()),
-	        'card' => 'summary_large_image',
-	        'site' => $this->getTwitterSite(),
-	        'image' => [
-	          'src' => $this->getHeroImageUrl()
-	        ]
+      'description' => trim($this->getDescription()),
+      'card' => 'summary_large_image',
+      'site' => $this->getTwitterSite(),
+      'image' => [
+        'src' => $this->getHeroImageUrl()
+      ]
 		];
-
 		return $attributes;
 	}
 
@@ -131,7 +121,4 @@ class Story extends Base {
 		 	return '';
 		 }
 	}
-
-
-
 }

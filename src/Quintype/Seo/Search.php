@@ -2,16 +2,13 @@
 
 namespace Quintype\Seo;
 
-require "Base.php";
-
-class Search extends Base {
-
-	function __construct($config, $pageType, $query){
+class Search
+{
+	function __construct($query){
 		$this->query = $query;
 	}
 
-	function tags() {
-			return ['title' => trim($this->query) ." - Search Results"];
+	function prepareTags() {
+		return ['title' => trim($this->query) ." - Search Results"];
 	}
-
 }

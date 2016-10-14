@@ -1,59 +1,24 @@
 # quintype-seo-php
-A composer package for seo for all quintype projects
+A composer package for SEO for all quintype projects
 
 ###Important : If any change is made to the package, do the following.
 * Create a new release.
 * Update the package in [Packagist](https://packagist.org/).
-* To use the new version of the package in any project, change the version number in composer.json file and run 
+* To use the new version of the package in any project, change the version number in composer.json file and run
 ``` $ composer update ```
 
 Note : We are making use of a package called Meta (https://github.com/quintype/meta) forked from https://github.com/RyanNielson/meta for dynamically adding the meta tags into the pages.
 
 Instructions to include the package into a project.
 
-### In composer.json, add a repository pointing to the forked meta repository.
-```sh
-"repositories": [
-        ...
-        ...
-        {
-            "type": "vcs",
-            "url": "https://github.com/quintype/meta"
-        }
-    ],
-```
-
-###  In composer.json, require the original Meta package and this seo package.
+###  In composer.json, require Meta and SEO packages.
 ```sh
 "require": {
         ...
         ...
-        "quintype/seo":"0.0.5",
-        "ryannielson/meta":"dev-master"
+        "quintype/seo":"2.0.0",
+        "quintype/meta":"2.0.0"
     },
-```
-###  In the Laravel config/app.php file, include Meta provider and give an alias to it.
-```sh
-'providers' => [
-        ...
-        ...
-        RyanNielson\Meta\MetaServiceProvider::class
-    ],
-    
-'aliases' => [
-        ...
-        ...
-        'Meta' => RyanNielson\Meta\Meta::class
-    ],
-```
-
-###  Add an attribute called 'title' in config/quintype.php file as a fall-back value if it is not recieved from the meta data.
-```sh
-return [
-    ...
-    ...
-    "title" => "Pina Colada"
-];
 ```
 
 ###  Install or update the composer packages.
@@ -62,25 +27,48 @@ $ composer install
 or
 $ composer update
 ```
+
+###  In the Laravel config/app.php file, add aliases to the packages for convenience.
+```sh
+'aliases' => [
+        ...
+        ...
+        'Meta' => Quintype\Meta\Meta::class,
+        'Seo' => Quintype\Seo\Seo::class
+    ],
+```
+
+###  Add an attribute called 'title' in config/quintype.php file as a fall-back value if it is not received from the meta data.
+```sh
+return [
+    ...
+    ...
+    "title" => "Pina Colada"
+];
+```
+
 ###  Include both Meta and SEO classes in the necessary controllers.
 ```sh
 use Meta;
-use Quintype\Seo;
+use Seo;
 ```
-###  Create a constructor function to initialize the Meta object and config variable if necessary.
+
+###  Create a constructor function to initialize the Meta and SEO objects. Note: Do not forget to pass the config(merge local config and config from API response) to SEO package.
 ```sh
 public function __construct(){
-  parent::__construct();
-  $this->meta = new Meta;
-  $this->config = $this->client->config();
+  $this->client = new Api(config("quintype.api-host"));
+  $this->config = array_merge($this->client->config(), config('quintype'));
+  $this->meta = new Meta();
+  $this->seo = new Seo($this->config);
 }
 ```
 ###  Prepare the data required for meta tags.
 ```sh
-// Setting Seo meta tags
-$page = ["type" => "home"];//Type of the page. In this case, it is the home page.
-$home = new Seo\Home(array_merge($this->config, config('quintype')), $page["type"]);//Since it is the home page, initialize the Home object.
-$this->meta->set($home->tags());//Set the tags received in the above step.
+
+$page = ["type" => PAGE_TYPE];//eg. home, section, story etc.
+//Set SEO meta tags.
+$setSeo = $this->seo->FUNCTION_CORRESPONDING_TO_PAGE(ARGUMENTS);//eg. home($arguments), section($arguments), story($arguments) etc.
+$this->meta->set($setSeo->prepareTags());
 ```
 
 ###  In the function to render the view, include the meta data.

@@ -3,35 +3,34 @@
 namespace Quintype\Seo;
 
 class Base {
-	function __construct($config, $pageType, $section_id=''){
+	function __construct($config, $pageType, $sectionId = ''){
 		$this->config = $config;
 		$this->pageType = $pageType;
-		$this->section_id = $section_id;
+		$this->sectionId = $sectionId;
 		$this->seoMetadata = $this->getSeoMetadata();
 	}
 
 	private function getSeoMetadata() {
-
 		if(sizeof($this->config['seo-metadata'])>0){
 			$key = 'owner-type';
 			$found = 0;
 
 			if($this->pageType == 'section'){//If it is a section page.
 				foreach ($this->config['seo-metadata'] as $metadata) {
-			        if (array_key_exists($key, $metadata) && $metadata[$key]==$this->pageType && $metadata['owner-id']==$this->section_id) {
-			        	$found = 1;
-			            return $metadata['data'];
-			        }
+	        if (array_key_exists($key, $metadata) && $metadata[$key]==$this->pageType && $metadata['owner-id']==$this->sectionId) {
+	        	$found = 1;
+            return $metadata['data'];
+	        }
 				}
 				if(!$found){
 					return array();
 				}
 			} else {
 				foreach ($this->config['seo-metadata'] as $metadata) {
-			        if (array_key_exists($key, $metadata) && $metadata[$key]==$this->pageType) {
-			        	$found = 1;
-			            return $metadata['data'];
-			        }
+	        if (array_key_exists($key, $metadata) && $metadata[$key]==$this->pageType) {
+	        	$found = 1;
+            return $metadata['data'];
+	        }
 				}
 				if(!$found){
 					return array();
