@@ -127,7 +127,7 @@ class Story extends Base
     private function getHeroImageUrl()
     {
         if (isset($this->config['cdn-name']) || isset($this->config['cdn-image'])) {
-            $cdn = isset($this->config['cdn-image']) ? $this->config['cdn-image'] : $this->config['cdn-name'];
+            $cdn = isset($this->config['cdn-image']) ? "https://".$this->config['cdn-image'] : $this->config['cdn-name'];
             $imageUrl = trim($cdn, '/').'/'.$this->story['hero-image-s3-key'];
 
             return str_replace(' ', '%20', $imageUrl);
