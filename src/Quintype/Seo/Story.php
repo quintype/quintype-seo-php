@@ -130,7 +130,7 @@ class Story extends Base
             $cdn = isset($this->config['cdn-image']) ? "https://".$this->config['cdn-image'] : $this->config['cdn-name'];
             $imageUrl = trim($cdn, '/').'/'.$this->story['hero-image-s3-key'];
 
-            return str_replace(' ', '%20', $imageUrl);
+            return str_replace(' ', '%20', $imageUrl).'?w=700';
         } else {
             return '';
         }
