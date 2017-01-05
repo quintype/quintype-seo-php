@@ -16,7 +16,7 @@ class Story extends Base
             return [
                 'title' => trim($this->getTitle()),
 			          'description' => trim($this->getDescription()),
-			          'keywords' => trim($this->getKeywords()),
+			          'keywords' => trim($this->getKeywords(["stories" => $this->story])),
 			          'og' => $this->getOgAttributes(),
 				        'twitter' => $this->getTwitterAttributes(),
 				        'msvalidate.01' => $this->getBingId(),

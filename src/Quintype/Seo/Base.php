@@ -67,11 +67,19 @@ class Base {
 		}
 	}
 
-	protected function getKeywords(){
+	protected function getKeywords($params = []){
+		$keywords = '';
 		if(isset($this->seoMetadata['keywords'])){
-			return $this->seoMetadata['keywords'];
+			$keywords = $this->seoMetadata['keywords'];
 		} else {
-			return '';
+			if(isset($params['stories'])){
+				$keywordsArray = [];
+				foreach ($params['stories']['tags'] as $key => $value) {
+					array_push($keywordsArray, $value['name']);
+				}
+				$keywords = implode($keywordsArray, ',');
+			}
+			return $keywords;
 		}
 	}
 
