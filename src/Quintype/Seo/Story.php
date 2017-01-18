@@ -17,6 +17,8 @@ class Story extends Base
                 'title' => trim($this->getTitle()),
 			          'description' => trim($this->getDescription()),
 			          'keywords' => trim($this->getKeywords(["stories" => $this->story])),
+                'section' => trim($this->getSectionName()),
+                'image_src' => $this->getHeroImageUrl(),
 			          'og' => $this->getOgAttributes(),
 				        'twitter' => $this->getTwitterAttributes(),
 				        'msvalidate.01' => $this->getBingId(),
@@ -41,6 +43,15 @@ class Story extends Base
     {
         if (isset($this->story['summary'])) {
             return $this->story['summary'];
+        } else {
+            return '';
+        }
+    }
+
+    protected function getSectionName()
+    {
+        if (isset($this->story['sections'][0]['name'])) {
+            return $this->story['sections'][0]['name'];
         } else {
             return '';
         }
