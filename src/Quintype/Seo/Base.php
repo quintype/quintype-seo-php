@@ -108,4 +108,12 @@ class Base {
 			return $this->config['sketches-host'] . "/". $this->story['slug'];
 		}
 	}
+
+	protected function getAlternateUrl(){
+		if(isset($this->config['android-package']) && $this->config['android-package'] !== ''){
+			$split_host_and_protocol = explode("://", $this->config['sketches-host']);
+			return $this->config['android-package']. "/" . $split_host_and_protocol[0] . "/" . $split_host_and_protocol[1] . "/" . $this->story['slug'];
+		}
+		return $this->config['sketches-host'] . "/". $this->story['slug'];
+	}
 }
