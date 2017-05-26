@@ -79,8 +79,8 @@ class Base {
 				}
 				$keywords = implode($keywordsArray, ',');
 			}
-			return $keywords;
 		}
+		return $keywords;
 	}
 
 	protected function getFacebookData($key){
