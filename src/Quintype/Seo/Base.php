@@ -82,7 +82,10 @@ class Base {
 						array_push($keywordsArray, $value['name']);
 					}
 					$keywords = implode($keywordsArray, ',');	
+<<<<<<< HEAD
 
+=======
+>>>>>>> 15425c197574818735772988560128b9a7dc9787
 				}
 			}
 		}

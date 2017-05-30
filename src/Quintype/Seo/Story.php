@@ -44,6 +44,7 @@ class Story extends Base
     protected function getDescription()
     {
         if(isset($this->story['seo']['meta-description'])&&($this->story['seo']['meta-description']!="")) {
+
             return $this->story['seo']['meta-description'];
         } elseif (isset($this->story['summary'])) {
             return $this->story['summary'];
