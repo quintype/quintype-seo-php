@@ -103,7 +103,7 @@ class Story extends Base
 			      'description' => trim($this->getDescription()),
 			      'card' => 'summary_large_image',
 			      'site' => $this->getTwitterSite(),
-                  'creator' => '@'.$this->getTwitterCreator(),
+                  'creator' => $this->getTwitterCreator(),
 			      'image' => [
 			        'src' => $this->getHeroImageUrl(),
 			      ],
@@ -131,9 +131,9 @@ class Story extends Base
         if ((isset($this->config['social-links']['twitter-url']))&&($this->config['social-links']['twitter-url'] !="")) {
             $creator = $this->config['social-links']['twitter-url'];
             $creator = explode('/', $creator);
-            return $creator[3];
+            return '@'.$creator[3];
         } else {
-            return 'creator';
+            return '';
         }
     }    
 
