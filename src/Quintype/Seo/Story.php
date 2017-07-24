@@ -48,7 +48,7 @@ class Story extends Base
             return $this->story['seo']['meta-description'];
         } elseif (isset($this->story['summary'])) {
             return $this->story['summary'];
-        } else { 
+        } else {
             return '';
         }
     }
@@ -131,11 +131,14 @@ class Story extends Base
         if ((isset($this->config['social-links']['twitter-url']))&&($this->config['social-links']['twitter-url'] !="")) {
             $creator = $this->config['social-links']['twitter-url'];
             $creator = explode('/', $creator);
-            return '@'.$creator[3];
+            if(isset($creator[3]))
+              return '@'.$creator[3];
+            else
+              return '';
         } else {
             return '';
         }
-    }    
+    }
 
     private function getPublisher()
     {
