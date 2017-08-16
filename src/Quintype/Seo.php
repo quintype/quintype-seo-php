@@ -34,4 +34,8 @@ class Seo
   public function tag($tag){
     return new Tag($this->config, $tag);
   }
+
+  public function custom($customValues = []){
+    return new Custom($this->config, $customValues);
+  }
 }
