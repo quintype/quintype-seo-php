@@ -74,7 +74,7 @@ class Base {
 		} else {
 			if(isset($params['stories'])){
 				$keywordsArray = [];
-				if(isset($this->story['seo']['meta-keywords'])&&($this->story['seo']['meta-keywords'][0]!="")) {
+				if(isset($this->story['seo']['meta-keywords']) && !empty($this->story['seo']['meta-keywords'][0])) {
 					$keywordsArray = $this->story['seo']['meta-keywords'];
 					$keywords = implode($keywordsArray, ',');
 				} else {
