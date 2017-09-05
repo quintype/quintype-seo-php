@@ -74,14 +74,14 @@ class Base {
 		} else {
 			if(isset($params['stories'])){
 				$keywordsArray = [];
-				if(isset($this->story['seo']['meta-keywords']) && !empty($this->story['seo']['meta-keywords'][0])) {
+				if(isset($this->story['seo']['meta-keywords']) && isset($this->story['seo']['meta-keywords'][0])) {
 					$keywordsArray = $this->story['seo']['meta-keywords'];
 					$keywords = implode($keywordsArray, ',');
 				} else {
 					foreach ($params['stories']['tags'] as $key => $value) {
 						array_push($keywordsArray, $value['name']);
 					}
-					$keywords = implode($keywordsArray, ',');	
+					$keywords = implode($keywordsArray, ',');
 				}
 			}
 		}
