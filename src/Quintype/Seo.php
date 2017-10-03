@@ -12,7 +12,7 @@ class Seo
   }
 
   public function search($query){
-    return new Search($query);
+    return new Search($this->config, $query);
   }
 
   public function section($pageType, $sectionName, $sectionId){
@@ -20,7 +20,7 @@ class Seo
   }
 
   public function staticPage($title){
-    return new StaticPage($title);
+    return new StaticPage($this->config, $title);
   }
 
   public function story($pageType, $story){

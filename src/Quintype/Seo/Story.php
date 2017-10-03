@@ -14,7 +14,7 @@ class Story extends Base
     {
         if (sizeof($this->story) > 0) {
             return [
-                'title' => trim($this->getTitle() . ' | '. $this->config['title']),
+                'title' => trim($this->getTitle()) . $this->titleTextToAppend,
 			          'description' => trim($this->getDescription()),
 			          'keywords' => trim($this->getKeywords(["stories" => $this->story])),
 			          'news_keywords' => trim($this->getKeywords(["stories" => $this->story])),

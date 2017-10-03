@@ -33,12 +33,12 @@ class Section extends Base
 	protected function getPageTitle(){
 		if(isset($this->seoMetadata['page-title'])){
 			if($this->seoMetadata['page-title']==''){
-				return $this->sectionName . " - " . $this->config['title'];
+				return $this->sectionName . $this->titleTextToAppend;
 			}else{
 				return $this->seoMetadata['page-title'];
 			}
 		} else {
-			return $this->sectionName . " - " . $this->config['title'];
+			return $this->sectionName . $this->titleTextToAppend;
 		}
 	}
 }

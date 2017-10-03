@@ -3,11 +3,12 @@
 namespace Quintype\Seo;
 
 class Base {
-	function __construct($config, $pageType, $sectionId = ''){
+	function __construct($config, $pageType = '', $sectionId = ''){
 		$this->config = $config;
 		$this->pageType = $pageType;
 		$this->sectionId = $sectionId;
 		$this->seoMetadata = $this->getSeoMetadata();
+		$this->titleTextToAppend = isset($this->config['titleTextToAppend']) ? $this->config['titleTextToAppend'] : '';
 	}
 
 	private function getSeoMetadata() {
