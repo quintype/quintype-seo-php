@@ -18,7 +18,6 @@ class Story extends Base
 			          'description' => trim($this->getDescription()),
 			          'keywords' => trim($this->getKeywords(["stories" => $this->story])),
 			          'news_keywords' => trim($this->getKeywords(["stories" => $this->story])),
-                'section' => trim($this->getSectionName()),
                 'image_src' => $this->getHeroImageUrl(),
 			          'og' => $this->getOgAttributes(),
 				        'twitter' => $this->getTwitterAttributes(),
