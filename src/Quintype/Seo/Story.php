@@ -31,7 +31,6 @@ class Story extends Base
 				          'publisher' => $this->getPublisher(),
 				        ],
 				        'rel:canonical' => $this->getCanonicalUrl(),
-				        'rel:alternate' => $this->getAlternateUrl(),
 				        'al:android:package' => $this->getAndroidData('al:android:package'),
 				        'al:android:app-name' => $this->getAndroidData('al:android:app-name'),
 				        'al:android:url' => 'quintypefb://'.$this->config['sketches-host'].'/'.$this->story['slug'],
