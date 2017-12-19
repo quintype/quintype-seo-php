@@ -18,7 +18,6 @@ class Story extends Base
 			          'description' => trim($this->getDescription()),
 			          'keywords' => trim($this->getKeywords(["stories" => $this->story])),
 			          'news_keywords' => trim($this->getKeywords(["stories" => $this->story])),
-                'section' => trim($this->getSectionName()),
                 'image_src' => $this->getHeroImageUrl(),
 			          'og' => $this->getOgAttributes(),
 				        'twitter' => $this->getTwitterAttributes(),
@@ -52,6 +51,16 @@ class Story extends Base
         }
     }
 
+   protected function getSocialDescription() {
+    if(isset($this->story['summary'])) {
+        return $this->story['summary'];
+    } elseif (isset($this->story['seo']['meta-description'])&&($this->story['seo']['meta-description']!="")) {
+        return $this->story['seo']['meta-description'];
+    } else {
+      return '';
+    }
+   }
+
     protected function getSectionName()
     {
         if (isset($this->story['sections'][0]['name'])) {
@@ -77,7 +86,7 @@ class Story extends Base
 			      'type' => 'article',
 			      'url' => $this->getCanonicalUrl(),
 			      'site-name' => trim($this->config['title']),
-			      'description' => trim($this->getDescription()),
+			      'description' => trim($this->getSocialDescription()),
 			      'image' => $this->getHeroImageUrl(),
     ];
 
@@ -99,7 +108,7 @@ class Story extends Base
     {
         $attributes = [
             'title' => trim($this->getTitle()),
-			      'description' => trim($this->getDescription()),
+			      'description' => trim($this->getSocialDescription()),
 			      'card' => 'summary_large_image',
 			      'site' => $this->getTwitterSite(),
                   'creator' => $this->getTwitterCreator(),

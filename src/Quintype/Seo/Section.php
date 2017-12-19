@@ -26,7 +26,14 @@ class Section extends Base
         ]
 	    ];
 		} else {
-			return ['title' => trim($this->getPageTitle())];
+      return [
+        'title' => trim($this->getPageTitle()),
+        'description' => trim($this->getDescription()),
+        'og' => [
+          'title' => trim($this->getPageTitle()),
+          'description' => trim($this->getDescription())
+        ]
+      ];
 		}
 	}
 
@@ -41,4 +48,16 @@ class Section extends Base
 			return $this->sectionName . $this->titleTextToAppend;
 		}
 	}
+
+  protected function getDescription() {
+		if(isset($this->seoMetadata['description'])){
+			if($this->seoMetadata['description']==''){
+				return $this->sectionName . $this->titleTextToAppend;
+			}else{
+				return $this->seoMetadata['description'];
+			}
+		} else {
+			return $this->sectionName . $this->titleTextToAppend;
+		}
+  }
 }
