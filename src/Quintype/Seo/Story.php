@@ -112,7 +112,7 @@ class Story extends Base
         $attributes = [
             'title' => isset($this->cardSocialShare["title"])? $this->cardSocialShare["title"] : trim($this->getTitle()),
             'type' => 'article',
-            'url' => "{$this->config['sketches-host']}/{$this->story['slug']}/{$card['id']}",
+            'url' => $this->getCanonicalUrl(). "/". $this->card['id'],
             'site-name' => trim($this->config['title']),
             'description' => isset($this->cardSocialShare["message"])? $this->cardSocialShare["message"] : trim($this->getSocialDescription()),
             'image' => isset($this->cardSocialShare["image"])? $this->getCardImageUrl() : $this->getHeroImageUrl(),
@@ -216,7 +216,7 @@ class Story extends Base
 
     private function getCardImageUrl()
     {
-        return $this->getImageCDNUrl($this->card['metadata']['image']['key']);
+        return $this->getImageCDNUrl($this->cardSocialShare['image']['key']);
     }
 
     private function getImageCDNUrl($imageS3Key)
