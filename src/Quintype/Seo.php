@@ -23,8 +23,8 @@ class Seo
     return new StaticPage($this->config, $title);
   }
 
-  public function story($pageType, $story){
-    return new Story($this->config, $pageType, $story);
+  public function story($pageType, $story, $card = null){
+    return new Story($this->config, $pageType, $story, $card);
   }
 
   public function storyElement($pageType, $story, $element){

@@ -4,10 +4,13 @@ namespace Quintype\Seo;
 
 class Story extends Base
 {
-    public function __construct($config, $pageType, $story)
+    public function __construct($config, $pageType, $story, $card = null)
     {
         parent::__construct($config, $pageType);
         $this->story = $story;
+        $this->card = $card;
+        $this->cardSocialShare = (isset($card) && isset($card['metadata']['social-share']['shareable']))? $card['metadata']['social-share'] : [];
+
     }
 
     public function prepareTags()
@@ -19,8 +22,8 @@ class Story extends Base
 			          'keywords' => trim($this->getKeywords(["stories" => $this->story])),
 			          'news_keywords' => trim($this->getKeywords(["stories" => $this->story])),
                 'image_src' => $this->getHeroImageUrl(),
-			          'og' => $this->getOgAttributes(),
-				        'twitter' => $this->getTwitterAttributes(),
+			          'og' => !empty($this->cardSocialShare)? $this->getCardShareOgAttributes() : $this->getOgAttributes(),
+				        'twitter' => !empty($this->cardSocialShare)? $this->getCardShareTwitterAttributes() :$this->getTwitterAttributes(),
 				        'msvalidate.01' => $this->getBingId(),
 				        'fb' => [
 				          'app_id' => $this->getFacebookData('app-id'),
@@ -104,6 +107,48 @@ class Story extends Base
         return $attributes;
     }
 
+    private function getCardShareOgAttributes()
+    {
+        $attributes = [
+            'title' => isset($this->cardSocialShare["title"])? $this->cardSocialShare["title"] : trim($this->getTitle()),
+            'type' => 'article',
+            'url' => "{$this->config['sketches-host']}/{$this->story['slug']}/{$card['id']}",
+            'site-name' => trim($this->config['title']),
+            'description' => isset($this->cardSocialShare["message"])? $this->cardSocialShare["message"] : trim($this->getSocialDescription()),
+            'image' => isset($this->cardSocialShare["image"])? $this->getCardImageUrl() : $this->getHeroImageUrl(),
+        ];
+
+        if (isset($this->cardSocialShare['image']['metadata'])) {
+            $imageProperties = [];
+            if (isset($this->cardSocialShare['image']['metadata']['width'])) {
+                $imageProperties['image:width'] = $this->cardSocialShare['image']['metadata']['width'];
+            }
+            if (isset($this->cardSocialShare['image']['metadata']['height'])) {
+                $imageProperties['image:height'] = $this->cardSocialShare['image']['metadata']['height'];
+            }
+            $attributes = array_merge($attributes, $imageProperties);
+        }
+
+
+        return $attributes;
+    }
+
+    private function getCardShareTwitterAttributes()
+    {
+        $attributes = [
+            'title' => isset($this->cardSocialShare["title"])? $this->cardSocialShare["title"] : trim($this->getTitle()),
+            'description' => isset($this->cardSocialShare["message"])? $this->cardSocialShare["message"] : trim($this->getSocialDescription()),
+            'card' => 'summary_large_image',
+            'site' => $this->getTwitterSite(),
+            'creator' => $this->getTwitterCreator(),
+            'image' => [
+                'src' => isset($this->cardSocialShare["image"])? $this->getCardImageUrl() : $this->getHeroImageUrl(),
+            ],
+        ];
+
+        return $attributes;
+    }
+
     private function getTwitterAttributes()
     {
         $attributes = [
@@ -166,9 +211,19 @@ class Story extends Base
 
     private function getHeroImageUrl()
     {
+        return $this->getImageCDNUrl($this->story['hero-image-s3-key']);
+    }
+
+    private function getCardImageUrl()
+    {
+        return $this->getImageCDNUrl($this->card['metadata']['image']['key']);
+    }
+
+    private function getImageCDNUrl($imageS3Key)
+    {
         if (isset($this->config['cdn-name']) || isset($this->config['cdn-image'])) {
             $cdn = isset($this->config['cdn-image']) ? "https://".$this->config['cdn-image'] : $this->config['cdn-name'];
-            $imageUrl = trim($cdn, '/').'/'.$this->story['hero-image-s3-key'];
+            $imageUrl = trim($cdn, '/').'/'.$imageS3Key;
 
             return str_replace(' ', '%20', $imageUrl).'?w=700';
         } else {
