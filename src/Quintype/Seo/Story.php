@@ -75,11 +75,7 @@ class Story extends Base
 
     protected function getTitle()
     {
-        if (isset($this->story['headline'])) {
-            return $this->story['headline'];
-        } else {
-            return $this->config['title'];
-        }
+        return !empty($this->story["seo"]["meta-title"])? $this->story["seo"]["meta-title"] : $this->story["headline"];
     }
 
     private function getOgAttributes()
