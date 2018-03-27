@@ -115,6 +115,14 @@ class Base {
 		}
 	}
 
+	protected function getStandOutUrl(){
+		if(isset($this->story['seo']['meta-google-news-standout'])){
+			return ['rel:standout' => $this->config['sketches-host'] . "/". $this->story['slug']];
+		} else {
+			[];
+		}
+	}
+
 	protected function getAlternateUrl(){
 		if(isset($this->config['android-package']) && $this->config['android-package'] !== ''){
 			$split_host_and_protocol = explode("://", $this->config['sketches-host']);

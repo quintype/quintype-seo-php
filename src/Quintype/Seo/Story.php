@@ -16,7 +16,7 @@ class Story extends Base
     public function prepareTags()
     {
         if (sizeof($this->story) > 0) {
-            return [
+            $allTags = [
                 'title' => trim($this->getTitle()) . $this->titleTextToAppend,
 			          'description' => trim($this->getDescription()),
 			          'keywords' => trim($this->getKeywords(["stories" => $this->story])),
@@ -37,6 +37,9 @@ class Story extends Base
 				        'al:android:app-name' => $this->getAndroidData('al:android:app-name'),
 				        'al:android:url' => 'quintypefb://'.$this->config['sketches-host'].'/'.$this->story['slug'],
 		        ];
+            $standOutUrl = $this->getStandOutUrl();//Check if the story is marked as standout story.
+
+            return $standOutUrl ? array_merge($allTags, $standOutUrl) : $allTags;
         } else {
             return ['title' => $this->getPageTitle()];
         }
