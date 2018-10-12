@@ -114,7 +114,7 @@ class Story extends Base
             'url' => $this->getCanonicalUrl(). "/". $this->card['id'],
             'site-name' => trim($this->config['title']),
             'description' => isset($this->cardSocialShare["message"])? $this->cardSocialShare["message"] : trim($this->getSocialDescription()),
-            'image' => isset($this->cardSocialShare["image"])? $this->getCardImageUrl() : $this->getHeroImageUrl(),
+            'image' => isset($this->cardSocialShare["image"]) && isset($this->cardSocialShare['image']['key']) ? $this->getCardImageUrl() : $this->getHeroImageUrl(),
         ];
 
         if (isset($this->cardSocialShare['image']['metadata'])) {
