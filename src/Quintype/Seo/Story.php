@@ -141,7 +141,7 @@ class Story extends Base
             'site' => $this->getTwitterSite(),
             'creator' => $this->getTwitterCreator(),
             'image' => [
-                'src' => isset($this->cardSocialShare["image"])? $this->getCardImageUrl() : $this->getHeroImageUrl(),
+                'src' => isset($this->cardSocialShare["image"]) && isset($this->cardSocialShare['image']['key']) ? $this->getCardImageUrl() : $this->getHeroImageUrl(),
             ],
         ];
 
