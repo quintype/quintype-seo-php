@@ -1,8 +1,8 @@
 {
     "name": "quintype/seo",
     "autoload": {
-        "psr-0" : {
-            "Quintype" : "src"
+        "psr-4" : {
+            "Quintype\\Api\\" : "src/Quintype/Api/"
         }
     }
 }
